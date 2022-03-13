@@ -2,7 +2,6 @@ package com.motline.mushroom.handler
 
 import com.motline.mushroom.service.VoteService
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.*
 
 @Component
@@ -22,7 +21,27 @@ class MainHandler(val voteService: VoteService) {
         return ServerResponse.ok().json().bodyValueAndAwait(votes)
     }
 
-    suspend fun vote(serverRequest: ServerRequest): ServerResponse {
+    suspend fun getVote(serverRequest: ServerRequest): ServerResponse {
+        val votes = voteService.votes()
+        println(votes)
+        return ServerResponse.ok().json().bodyValueAndAwait(votes)
+    }
+
+    suspend fun saveVote(serverRequest: ServerRequest): ServerResponse {
+        val votes = voteService.votes()
+        println(votes)
+        return ServerResponse.ok().json().bodyValueAndAwait(votes)
+    }
+
+    suspend fun saveComment(serverRequest: ServerRequest): ServerResponse {
+        return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
+    }
+
+    suspend fun like(serverRequest: ServerRequest): ServerResponse {
+        return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
+    }
+
+    suspend fun dislike(serverRequest: ServerRequest): ServerResponse {
         return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
     }
 }

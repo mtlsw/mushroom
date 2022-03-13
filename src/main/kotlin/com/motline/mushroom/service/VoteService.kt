@@ -3,6 +3,7 @@ package com.motline.mushroom.service
 import com.motline.mushroom.model.dto.Article
 import com.motline.mushroom.model.dto.Candidate
 import com.motline.mushroom.model.dto.User
+import com.motline.mushroom.model.dto.Vote
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import java.time.LocalDateTime
@@ -10,7 +11,7 @@ import java.time.LocalDateTime
 @Service
 class VoteService(val webClientBuilder: WebClient.Builder) {
 
-    suspend fun votes(): List<Article> {
+    suspend fun votes(): List<Vote> {
 
         // dummy
         return dummyVotes()
@@ -27,9 +28,9 @@ class VoteService(val webClientBuilder: WebClient.Builder) {
 
     val comments: List<Comment>
      */
-    suspend fun dummyVotes(): List<Article> {
+    suspend fun dummyVotes(): List<Vote> {
         return listOf(
-            Article(
+            Vote(
                 author = User("pg160"),
                 created = LocalDateTime.now(),
                 description = "g90 vs e class",

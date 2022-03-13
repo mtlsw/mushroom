@@ -22,9 +22,15 @@ class Route {
         accept(MediaType.APPLICATION_JSON).nest {
             "/api".nest {
                 GET("/info", mainHandler::info)
+            }
+
+            "/api/article".nest {
                 GET("/votes", mainHandler::votes)
-                GET("/vote/{id}", mainHandler::vote)
-                POST("/dummy", mainHandler::dummy)
+                GET("/vote/{id}", mainHandler::getVote)
+                POST("/vote", mainHandler::saveVote)
+                POST("/{articleId}/comment", mainHandler::saveComment)
+                POST("{articleId}/like", mainHandler::like)
+                POST("{articleId}/dislike", mainHandler::dislike)
             }
         }
     }

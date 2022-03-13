@@ -4,14 +4,14 @@ import java.time.LocalDateTime
 
 data class Vote(
     val author: User,
-    val created: Long, // to datetime
-//    val title: String,
-    val voteCount: Int, // sum of candidates?
+    val created: LocalDateTime, // to datetime
+
     val description: String,
     val candidates: List<Candidate>, // max 4? 5?
 
-    val likes: List<String>, // list of user id?
-    val comments: List<Comment>
+    val likes: List<String> = emptyList(), // list of user id?
+    val dislikes: List<String> = emptyList(), // list of user id?
+    val comments: List<Comment> = emptyList()
 )
 
 data class Article(
