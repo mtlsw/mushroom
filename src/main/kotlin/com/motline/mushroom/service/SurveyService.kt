@@ -1,27 +1,27 @@
 package com.motline.mushroom.service
 
 import com.motline.mushroom.model.dto.Survey
-import com.motline.mushroom.repository.VoteRepository
+import com.motline.mushroom.repository.SurveyRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 
 @Service
-class VoteService(
+class SurveyService(
     val webClientBuilder: WebClient.Builder,
-    val voteRepository: VoteRepository
+    val surveyRepository: SurveyRepository
 
     ) {
 
     suspend fun getAll(): List<Survey> {
-        return voteRepository.getAll()
+        return surveyRepository.getAll()
     }
 
     suspend fun get(id: String): Survey? {
-        return voteRepository.get(id)
+        return surveyRepository.get(id.toInt())
     }
 
     suspend fun save(vote: Survey): Survey? {
-        return voteRepository.save(vote)
+        return surveyRepository.save(vote)
     }
 }
 

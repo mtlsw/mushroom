@@ -1,9 +1,15 @@
 package com.motline.mushroom.model.dto
 
+import java.time.LocalDateTime
+
 data class Comment(
-    val author: User,
-    val created: Long, // to datetime
-    val body: String,
-    val likes: List<String> = emptyList(), // list of user id?
-    val subComments: List<Comment> = emptyList(),
+    val id: Int,
+    val userName: String,
+    val thumbnail: String,
+    val created: LocalDateTime, // to datetime
+    val contents: String,
+
+    val thumbUpCount: Int,
+    val commentCount: Int,
+    val nestedCommentId: Int
 )

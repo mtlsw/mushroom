@@ -7,13 +7,6 @@ import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.coRouter
 
-/*
-POST        /api/v2/skill/test                            controllers.v2.SkillController.testSkill
-POST        /api/v2/skill/exec/:actionId                  controllers.v2.SkillController.executeSkillByActionId(actionId)
-POST        /api/v2/skill/format                          controllers.v2.SkillController.format
-POST        /api/v2/validate/param                        controllers.v2.ValidateController.validateParam
-
- */
 @Configuration
 class Route {
 
@@ -24,9 +17,9 @@ class Route {
                 GET("/info", mainHandler::info)
             }
 
-            "/api/article".nest {
-                GET("/votes", mainHandler::votes)
-                GET("/vote/{id}", mainHandler::getVote)
+            "/api/surveys".nest {
+                GET("/", mainHandler::surveys)
+                GET("/{id}", mainHandler::survey)
                 POST("/vote", mainHandler::saveVote)
                 POST("/{articleId}/comment", mainHandler::saveComment)
                 POST("{articleId}/like", mainHandler::like)
