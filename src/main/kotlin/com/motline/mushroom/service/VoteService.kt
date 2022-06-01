@@ -1,42 +1,32 @@
 package com.motline.mushroom.service
 
-import com.motline.mushroom.model.dto.Article
-import com.motline.mushroom.model.dto.Candidate
-import com.motline.mushroom.model.dto.User
-import com.motline.mushroom.model.dto.Vote
+import com.motline.mushroom.model.dto.Survey
+import com.motline.mushroom.repository.VoteRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
-import java.time.LocalDateTime
 
 @Service
-class VoteService(val webClientBuilder: WebClient.Builder) {
+class VoteService(
+    val webClientBuilder: WebClient.Builder,
+    val voteRepository: VoteRepository
 
-    suspend fun votes(): List<Vote> {
+    ) {
 
-        // dummy
-        return dummyVotes()
+    suspend fun getAll(): List<Survey> {
+        return voteRepository.getAll()
     }
 
-    /*
-    val author: User,
-    val created: Long, // to datetime
-    val description: String,
-    val candidates: List<Candidate>?, // max 4? 5?
+    suspend fun get(id: String): Survey? {
+        return voteRepository.get(id)
+    }
 
-    val likes: List<String>, // list of user id?
-    val dislikes: List<String>, // list of user id?
-
-    val comments: List<Comment>
-     */
-    suspend fun dummyVotes(): List<Vote> {
-        return listOf(
-            Vote(
-                author = User("pg160"),
-                created = LocalDateTime.now(),
-                description = "g90 vs e class",
-                candidates = listOf(Candidate("g90"), Candidate("e class"))
-            ),
-        )
+    suspend fun save(vote: Survey): Survey? {
+        return voteRepository.save(vote)
     }
 }
 
+/*
+suspend fun get(id: String): Vote? {
+        return this.votes.find { it.id == id }
+    }
+ */
