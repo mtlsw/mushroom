@@ -55,17 +55,14 @@ tasks {
 //            }
         }
         to {
-//            image = "655534681351.dkr.ecr.ap-northeast-2.amazonaws.com/${project.name}-${project.version.toString().toLowerCase()}"
-
-            image = "gcr.io/tfit-271908/mushroom"
-            tags = mutableSetOf("latest")
+            image = "mushroom"
+            tags = mutableSetOf("${project.version}")
 
         }
         container {
             creationTime = "USE_CURRENT_TIMESTAMP"
             jvmFlags = mutableListOf("-Dspring.profiles.active=local", "-XX:+UseContainerSupport", "-Dserver.port=8080", "-Dfile.encoding=UTF-8")
             ports = mutableListOf("8080")
-//            labels = [maintainer: "x <x@gmail.com>"]
         }
     }
 }
