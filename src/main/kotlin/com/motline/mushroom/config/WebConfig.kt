@@ -11,7 +11,7 @@ class WebConfig : WebFluxConfigurer {
 
         registry.addMapping("/api/surveys/**")
             .allowedOrigins("*")
-            .allowedMethods("GET", "POST", "PUT")
+            .allowedMethods("GET", "POST", "PUT", "OPTION")
             .allowedHeaders("*")
             .exposedHeaders("*")
             .allowCredentials(true).maxAge(3600)
