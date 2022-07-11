@@ -17,11 +17,13 @@ class MainHandler(val surveyService: SurveyService) {
     }
 
     suspend fun surveys(serverRequest: ServerRequest): ServerResponse {
-        val surveys = surveyService.getAll()
+        val category = serverRequest.queryParamOrNull("category")
+        val keyword = serverRequest.queryParamOrNull("keyword")
+        val surveys = surveyService.getAll(category = category, keyword = keyword)
         println(surveys)
         val res = mapOf(
             "data" to surveys,
-            "totalCount" to surveys.size,
+            "totalCount" to surveys.size, // pagination 하면 달라질 수 있음.
             "currPage" to 0,
             "nextPage" to false
         )
@@ -40,7 +42,7 @@ class MainHandler(val surveyService: SurveyService) {
         }
     }
 
-    suspend fun saveVote(serverRequest: ServerRequest): ServerResponse {
+    suspend fun saveSurvey(serverRequest: ServerRequest): ServerResponse {
         val saveRequest = serverRequest.awaitBody<SurveySaveRequest>()
         val vote = surveyService.save(saveRequest.toSurvey())
         println(vote)
@@ -48,6 +50,12 @@ class MainHandler(val surveyService: SurveyService) {
     }
 
     suspend fun saveComment(serverRequest: ServerRequest): ServerResponse {
+        return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
+    }
+
+    suspend fun getComments(serverRequest: ServerRequest): ServerResponse {
+        val id = serverRequest.queryParamOrNull("id")
+
         return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
     }
 

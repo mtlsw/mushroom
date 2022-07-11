@@ -12,12 +12,12 @@ class SurveyService(
 
     ) {
 
-    suspend fun getAll(): List<Survey> {
-        return surveyRepository.getAll()
+    suspend fun getAll(category: String?, keyword: String?): List<Survey> {
+        return surveyRepository.getAll(category, keyword)
     }
 
     suspend fun get(id: String): Survey? {
-        return surveyRepository.get(id.toInt())
+        return surveyRepository.get(id)
     }
 
     suspend fun save(vote: Survey): Survey? {

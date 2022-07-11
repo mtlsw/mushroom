@@ -10,8 +10,8 @@ class WebConfig : WebFluxConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
 
         registry.addMapping("/api/surveys/**")
-            .allowedOrigins("*")
-            .allowedMethods("GET", "POST", "PUT", "OPTION")
+            .allowedOriginPatterns("*")
+            .allowedMethods("GET", "POST", "PUT", "OPTIONS")
             .allowedHeaders("*")
             .exposedHeaders("*")
             .allowCredentials(true).maxAge(3600)

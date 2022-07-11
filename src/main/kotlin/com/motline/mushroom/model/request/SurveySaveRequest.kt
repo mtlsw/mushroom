@@ -20,11 +20,11 @@ data class SurveySaveRequest(
 
     fun toSurvey(): Survey {
         return Survey(
+            id = null,
             user = user,
             votes = votes,
             created = created,
             contents = contents,
-            id = 0,
             currentUserReaction = false,
             commentCount = 0,
             likeCount = 0

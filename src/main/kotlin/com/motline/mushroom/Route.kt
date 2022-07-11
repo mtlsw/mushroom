@@ -19,8 +19,14 @@ class Route {
 
             "/api/surveys".nest {
                 GET("/", mainHandler::surveys)
+                GET("", mainHandler::surveys)
+                POST("/", mainHandler::saveSurvey)
+                POST("", mainHandler::saveSurvey)
+                POST("/survey", mainHandler::saveSurvey)
+
+                GET("/{id}/comments", mainHandler::getComments)
+
                 GET("/{id}", mainHandler::survey)
-                POST("/vote", mainHandler::saveVote)
                 POST("/{articleId}/comment", mainHandler::saveComment)
                 POST("{articleId}/like", mainHandler::like)
                 POST("{articleId}/dislike", mainHandler::dislike)
