@@ -1,6 +1,8 @@
 package com.motline.mushroom
 
-import com.motline.mushroom.handler.MainHandler
+import com.motline.mushroom.handler.CommentHandler
+import com.motline.mushroom.handler.SurveyHandler
+import com.motline.mushroom.handler.NestedCommentHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
@@ -11,25 +13,37 @@ import org.springframework.web.reactive.function.server.coRouter
 class Route {
 
     @Bean
-    fun routes(mainHandler: MainHandler): RouterFunction<*> = coRouter {
+    fun routes(surveyHandler: SurveyHandler,
+               commentHandler: CommentHandler,
+               nestedCommentHandler: NestedCommentHandler): RouterFunction<*> = coRouter {
         accept(MediaType.APPLICATION_JSON).nest {
             "/api".nest {
-                GET("/info", mainHandler::info)
+                GET("/info", surveyHandler::info)
             }
 
             "/api/surveys".nest {
-                GET("/", mainHandler::surveys)
-                GET("", mainHandler::surveys)
-                POST("/", mainHandler::saveSurvey)
-                POST("", mainHandler::saveSurvey)
-                POST("/survey", mainHandler::saveSurvey)
+                GET("/", surveyHandler::getSurveys)
+                GET("", surveyHandler::getSurveys)
+                POST("/", surveyHandler::saveSurvey)
+                POST("", surveyHandler::saveSurvey)
+                POST("/survey", surveyHandler::saveSurvey)
+//                PUT()
 
-                GET("/{id}/comments", mainHandler::getComments)
+                GET("/{id}", surveyHandler::getSurvey)
 
-                GET("/{id}", mainHandler::survey)
-                POST("/{articleId}/comment", mainHandler::saveComment)
-                POST("{articleId}/like", mainHandler::like)
-                POST("{articleId}/dislike", mainHandler::dislike)
+
+                GET("/{id}/comments", commentHandler::getComments)
+//                GET("/{id}/comments/{commentId}", commentHandler::getComments)
+                POST("/{id}/comment", commentHandler::saveComment)
+
+                GET("/{id}/comments/{commentId}", nestedCommentHandler::gets)
+//                GET("/{id}/comments/{commentId}", commentHandler::getComments)
+                POST("/{id}/comment/{commentId}", nestedCommentHandler::save)
+
+
+
+                POST("{articleId}/like", surveyHandler::like)
+                POST("{articleId}/dislike", surveyHandler::dislike)
             }
         }
     }

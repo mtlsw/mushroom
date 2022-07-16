@@ -18,7 +18,7 @@ class VoteRepository {
     }
 
     suspend fun get(id: String): Vote? {
-        return this.votes.find { it.id == id.toInt() }
+        return this.votes.find { it.id == id }
     }
 
     suspend fun getAll(): List<Vote> {

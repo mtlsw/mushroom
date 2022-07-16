@@ -9,6 +9,6 @@ val id: String?,
     val contents: String,
     val surveyId: String,
  */
-data class CommentSaveRequest(
+data class NestedCommentSaveRequest(
     val contents: String
 )
