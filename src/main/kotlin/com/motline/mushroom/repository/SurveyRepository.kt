@@ -26,8 +26,8 @@ class SurveyRepository {
             vote = 0
         )
 
-        val votes = (0 .. 5).map { i ->
-            vote.copy(label = "$vote 1", vote = i)
+        val votes = (0 .. 2).map { i ->
+            vote.copy(label = "$vote 1", vote = i, id = getRandomId())
         }
 
         val survey = Survey(
