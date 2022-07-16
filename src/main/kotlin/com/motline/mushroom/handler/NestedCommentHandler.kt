@@ -1,9 +1,7 @@
 package com.motline.mushroom.handler
 
-import com.motline.mushroom.common.pagableResposne
-import com.motline.mushroom.model.dto.NestedComment
+import com.motline.mushroom.common.pageableResponse
 import com.motline.mushroom.model.request.NestedCommentSaveRequest
-import com.motline.mushroom.service.CommentService
 import com.motline.mushroom.service.NestedCommentService
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.*
@@ -26,7 +24,7 @@ class NestedCommentHandler(val nestedCommentService: NestedCommentService) {
         val page = serverRequest.queryParamOrNull("page")
 
         val comments = nestedCommentService.getAll(commentId)
-        return ServerResponse.ok().json().bodyValueAndAwait(pagableResposne(comments))
+        return ServerResponse.ok().json().bodyValueAndAwait(pageableResponse(comments))
     }
 
 }

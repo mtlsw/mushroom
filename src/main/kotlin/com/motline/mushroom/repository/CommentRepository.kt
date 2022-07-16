@@ -1,5 +1,6 @@
 package com.motline.mushroom.repository
 
+import com.motline.mushroom.common.getRandomId
 import com.motline.mushroom.model.dto.Comment
 import com.motline.mushroom.model.dto.User
 import org.springframework.stereotype.Component
@@ -45,7 +46,7 @@ class CommentRepository {
     }
 
     suspend fun save(c: Comment): Comment {
-        val comment = c.copy(id = Random.nextLong(100000000).toString())
+        val comment = c.copy(id = getRandomId())
         this.comments.add(comment)
         return comment
     }

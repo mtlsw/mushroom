@@ -8,14 +8,14 @@ import java.time.LocalDateTime
 
 data class SurveySaveRequest(
     val user: User,
-    val created: LocalDateTime, // to datetime
+    val created: LocalDateTime? = null, // to datetime
 
     val contents: String,
     val votes: List<Vote>, // max 4? 5?
 
-    val likeCount: Int,
-    val commentCount: Int,
-    val currentUserReaction: Boolean
+    val likeCount: Int = 0,
+    val commentCount: Int = 0,
+    val currentUserReaction: Boolean = false
 ) {
 
     fun toSurvey(): Survey {
@@ -23,7 +23,7 @@ data class SurveySaveRequest(
             id = null,
             user = user,
             votes = votes,
-            created = created,
+            created = created ?: LocalDateTime.now(),
             contents = contents,
             currentUserReaction = false,
             commentCount = 0,

@@ -3,6 +3,7 @@ package com.motline.mushroom
 import com.motline.mushroom.handler.CommentHandler
 import com.motline.mushroom.handler.SurveyHandler
 import com.motline.mushroom.handler.NestedCommentHandler
+import com.motline.mushroom.handler.SomeHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
@@ -14,11 +15,15 @@ class Route {
 
     @Bean
     fun routes(surveyHandler: SurveyHandler,
+               someHandler: SomeHandler,
                commentHandler: CommentHandler,
                nestedCommentHandler: NestedCommentHandler): RouterFunction<*> = coRouter {
         accept(MediaType.APPLICATION_JSON).nest {
+            "/".nest {
+                GET("", someHandler::main)
+            }
             "/api".nest {
-                GET("/info", surveyHandler::info)
+                GET("/info", someHandler::info)
             }
 
             "/api/surveys".nest {
@@ -26,7 +31,6 @@ class Route {
                 GET("", surveyHandler::getSurveys)
                 POST("/", surveyHandler::saveSurvey)
                 POST("", surveyHandler::saveSurvey)
-                POST("/survey", surveyHandler::saveSurvey)
 //                PUT()
 
                 GET("/{id}", surveyHandler::getSurvey)

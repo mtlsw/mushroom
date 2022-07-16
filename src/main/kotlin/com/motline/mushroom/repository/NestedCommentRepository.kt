@@ -1,5 +1,6 @@
 package com.motline.mushroom.repository
 
+import com.motline.mushroom.common.getRandomId
 import com.motline.mushroom.model.dto.NestedComment
 import com.motline.mushroom.model.dto.User
 import org.springframework.stereotype.Component
@@ -13,7 +14,7 @@ class NestedCommentRepository {
 
     init {
         val x = NestedComment(
-            id = "cdid0",
+            id = "ncid0",
             commentId = "cid0",
             User("name"),
             LocalDateTime.now(),
@@ -33,7 +34,7 @@ class NestedCommentRepository {
     }
 
     suspend fun save(nc: NestedComment): NestedComment {
-        val nc = nc.copy(id = Random.nextLong(100000000).toString())
+        val nc = nc.copy(id = getRandomId())
         this.nestedComments.add(nc)
         return nc
     }

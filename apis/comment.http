@@ -1,0 +1,31 @@
+POST http://localhost:8080/api/surveys/sid0/comment
+Content-Type: application/json
+
+{
+  "contents": "hell"
+}
+
+###
+
+POST http://localhost:8080/api/surveys/sid0/comment/cid0
+Content-Type: application/json
+
+{
+"contents": "hell"
+}
+
+
+###
+// GET("/{id}/comments", commentHandler::getComments)
+GET http://localhost:8080/api/surveys/sid0/comments
+Accept: application/json
+
+###
+// nested commentㄴ
+GET http://localhost:8080/api/surveys/sid0/comments/cid0
+Accept: application/json
+
+###
+
+
+

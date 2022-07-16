@@ -1,6 +1,8 @@
 package com.motline.mushroom.common
 
-fun pagableResposne(data: List<Any>): Map<String, Any> {
+import kotlin.random.Random
+
+fun pageableResponse(data: List<Any>): Map<String, Any> {
     return mapOf(
         "data" to data,
         "totalCount" to data.size, // pagination 하면 달라질 수 있음.
@@ -8,3 +10,5 @@ fun pagableResposne(data: List<Any>): Map<String, Any> {
         "nextPage" to false
     )
 }
+
+fun getRandomId() = Random.nextLong(100000000).toString()

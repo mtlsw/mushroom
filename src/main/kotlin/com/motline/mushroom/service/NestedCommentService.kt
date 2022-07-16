@@ -10,7 +10,10 @@ import java.time.LocalDateTime
 
 
 @Service
-class NestedCommentService(val nestedCommentRepository: NestedCommentRepository) {
+class NestedCommentService(
+    val nestedCommentRepository: NestedCommentRepository,
+    val commentService: CommentService
+    ) {
 
     /*
     data class NestedComment(
@@ -26,14 +29,20 @@ class NestedCommentService(val nestedCommentRepository: NestedCommentRepository)
 
         // header의 토큰을 이용해서 user를 가져올듯
 
-        val user = User("솔님")
-        val n = NestedComment(
-            commentId = commentId,
-            user = user,
-            created = LocalDateTime.now(),
-            contents = contents,
-        )
-        return nestedCommentRepository.save(n)
+        val comment = commentService.get(commentId)
+
+        if (comment == null) {
+            throw Exception("comment not exist: $commentId")
+        } else {
+            val user = User("솔님")
+            val n = NestedComment(
+                commentId = commentId,
+                user = user,
+                created = LocalDateTime.now(),
+                contents = contents,
+            )
+            return nestedCommentRepository.save(n)
+        }
     }
 
     suspend fun getAll(commentId: String): List<NestedComment> {

@@ -1,0 +1,35 @@
+POST http://localhost:8080/api/surveys
+Content-Type: application/json
+
+{
+  "user": {
+    "name": "angry"
+  },
+  "contents": "hell",
+  "votes": [
+    {
+      "label": "sexy",
+      "thumbnail": "https://www.topgear.com/sites/default/files/2022/07/N%20Vision%2074_05_0.jpg?w=1784&h=1004",
+      "vote": 0
+    },
+    {
+      "label": "sexy2",
+      "thumbnail": "https://www.topgear.com/sites/default/files/2022/07/N%20Vision%2074_11.jpg?w=1784&h=1004",
+      "vote": 0
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/api/surveys
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/surveys/abc
+Accept: application/json
+
+###
+
+
+

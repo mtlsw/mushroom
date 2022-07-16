@@ -1,6 +1,6 @@
 package com.motline.mushroom.handler
 
-import com.motline.mushroom.common.pagableResposne
+import com.motline.mushroom.common.pageableResponse
 import com.motline.mushroom.model.request.SurveySaveRequest
 import com.motline.mushroom.service.SurveyService
 import org.springframework.stereotype.Component
@@ -11,41 +11,28 @@ class SurveyHandler(
     val surveyService: SurveyService
     ) {
 
-    suspend fun info(serverRequest: ServerRequest): ServerResponse {
-        return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
-    }
-
-    suspend fun dummy(serverRequest: ServerRequest): ServerResponse {
-        return ServerResponse.ok().json().bodyValueAndAwait(mapOf("" to ""))
-    }
-
     suspend fun getSurveys(serverRequest: ServerRequest): ServerResponse {
         val category = serverRequest.queryParamOrNull("category")
         val keyword = serverRequest.queryParamOrNull("keyword")
         val surveys = surveyService.getAll(category = category, keyword = keyword)
         println(surveys)
-        val res =pagableResposne(surveys)
+        val res =pageableResponse(surveys)
 
         return ServerResponse.ok().json().bodyValueAndAwait(res)
     }
 
     suspend fun getSurvey(serverRequest: ServerRequest): ServerResponse {
-        val surveyId = serverRequest.queryParamOrNull("id")
-
-        if (surveyId != null)  {
-            val survey = surveyService.get(surveyId)
-            println(survey)
-            return ServerResponse.ok().json().bodyValueAndAwait(survey!!)
-        } else {
-            throw Exception("id null")
-        }
+        val surveyId = serverRequest.pathVariable("id")
+        val survey = surveyService.get(surveyId)
+        println(survey)
+        return ServerResponse.ok().json().bodyValueAndAwait(survey!!)
     }
 
     suspend fun saveSurvey(serverRequest: ServerRequest): ServerResponse {
         val saveRequest = serverRequest.awaitBody<SurveySaveRequest>()
-        val vote = surveyService.save(saveRequest.toSurvey())
-        println(vote)
-        return ServerResponse.ok().json().bodyValueAndAwait(vote!!)
+        val survey = surveyService.save(saveRequest.toSurvey())
+        println(survey)
+        return ServerResponse.ok().json().bodyValueAndAwait(survey!!)
     }
 
 

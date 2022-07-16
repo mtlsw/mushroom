@@ -1,10 +1,12 @@
 package com.motline.mushroom.repository
 
+import com.motline.mushroom.common.getRandomId
 import com.motline.mushroom.model.dto.Survey
 import com.motline.mushroom.model.dto.User
 import com.motline.mushroom.model.dto.Vote
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import kotlin.random.Random
 
 @Service
 class SurveyRepository {
@@ -29,7 +31,7 @@ class SurveyRepository {
         }
 
         val survey = Survey(
-            id = "abc",
+            id = "sid0",
             user = User("hi"),
             created = LocalDateTime.now(),
             contents = ranText.random(),
@@ -42,8 +44,9 @@ class SurveyRepository {
         this.surveys.add(survey)
     }
     suspend fun save(survey: Survey): Survey {
-        return if(this.surveys.add(survey)) {
-            survey
+        val s = survey.copy(id = getRandomId())
+        return if(this.surveys.add(s)) {
+            s
         } else {
             throw Exception("save error")
         }

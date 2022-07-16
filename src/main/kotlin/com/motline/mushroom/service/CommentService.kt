@@ -14,10 +14,14 @@ val id: String?,
     val surveyId: String,
  */
 @Service
-class CommentService(val commentRepository: CommentRepository) {
+class CommentService(private val commentRepository: CommentRepository) {
 
     suspend fun getAll(surveyId: String): List<Comment> {
         return commentRepository.getAll(surveyId)
+    }
+
+    suspend fun get(commentId: String): Comment? {
+        return commentRepository.get(commentId)
     }
 
     // TODO: User 넣어야함.
