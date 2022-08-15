@@ -16,7 +16,7 @@ class SurveyHandler(
         val keyword = serverRequest.queryParamOrNull("keyword")
         val surveys = surveyService.getAll(category = category, keyword = keyword)
         println(surveys)
-        val res =pageableResponse(surveys)
+        val res = pageableResponse(surveys)
 
         return ServerResponse.ok().json().bodyValueAndAwait(res)
     }

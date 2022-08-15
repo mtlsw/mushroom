@@ -1,6 +1,7 @@
 package com.motline.mushroom.repository
 
 import com.motline.mushroom.common.getRandomId
+import com.motline.mushroom.common.getRandomToken
 import com.motline.mushroom.model.dto.Survey
 import com.motline.mushroom.model.dto.User
 import com.motline.mushroom.model.dto.Vote
@@ -32,7 +33,7 @@ class SurveyRepository {
 
         val survey = Survey(
             id = "sid0",
-            user = User("hi"),
+            user = User("hi", getRandomToken()),
             created = LocalDateTime.now(),
             contents = ranText.random(),
             votes = votes,

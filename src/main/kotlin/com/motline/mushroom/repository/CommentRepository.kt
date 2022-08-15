@@ -1,6 +1,7 @@
 package com.motline.mushroom.repository
 
 import com.motline.mushroom.common.getRandomId
+import com.motline.mushroom.common.getRandomToken
 import com.motline.mushroom.model.dto.Comment
 import com.motline.mushroom.model.dto.User
 import org.springframework.stereotype.Component
@@ -28,9 +29,11 @@ class CommentRepository {
     init {
         val x = Comment(
             "cid0",
-            User("name"),
+            User("name", getRandomToken()),
             LocalDateTime.now(),
-            "hello",
+            contents = "여기가 어디에여?\n" +
+                    "자문자답 : 서울 강서구 공항대로 432 (우)07655 여기군요.\n" +
+                    "근데 왜 부천 하이웨이라고 했을까여 ㅎ",
             surveyId = "sid0"
         )
 

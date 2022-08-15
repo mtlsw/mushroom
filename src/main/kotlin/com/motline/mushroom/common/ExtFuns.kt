@@ -1,5 +1,7 @@
 package com.motline.mushroom.common
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.UUIDGenerator
+import java.util.UUID
 import kotlin.random.Random
 
 fun pageableResponse(data: List<Any>): Map<String, Any> {
@@ -12,3 +14,4 @@ fun pageableResponse(data: List<Any>): Map<String, Any> {
 }
 
 fun getRandomId() = Random.nextLong(100000000).toString()
+fun getRandomToken() = UUID.randomUUID().toString()

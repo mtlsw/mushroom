@@ -1,5 +1,6 @@
 package com.motline.mushroom.service
 
+import com.motline.mushroom.common.getRandomToken
 import com.motline.mushroom.model.dto.Comment
 import com.motline.mushroom.model.dto.NestedComment
 import com.motline.mushroom.model.dto.User
@@ -34,7 +35,7 @@ class NestedCommentService(
         if (comment == null) {
             throw Exception("comment not exist: $commentId")
         } else {
-            val user = User("솔님")
+            val user = User("솔님", getRandomToken())
             val n = NestedComment(
                 commentId = commentId,
                 user = user,
@@ -47,5 +48,9 @@ class NestedCommentService(
 
     suspend fun getAll(commentId: String): List<NestedComment> {
         return nestedCommentRepository.getAll(commentId)
+    }
+
+    suspend fun like(nestedCommentId: String, user: User) {
+
     }
 }

@@ -9,4 +9,5 @@ data class NestedComment(
     val created: LocalDateTime,
     val contents: String,
     val likeCount: Int = 0,
+    val me: Boolean = false
 )

@@ -18,6 +18,16 @@ class CommentHandler(val commentService: CommentService) {
         return ServerResponse.ok().json().bodyValueAndAwait(mapOf("error" to "", "result" to comment))
     }
 
+    suspend fun updateComment(serverRequest: ServerRequest): ServerResponse {
+        val contents = serverRequest.awaitBody(CommentSaveRequest::class).contents
+        val surveyId = serverRequest.pathVariable("id")
+
+        val comment = commentService.save(contents, surveyId)
+
+        // TODO
+        return ServerResponse.ok().json().bodyValueAndAwait(mapOf("error" to "", "result" to comment))
+    }
+
     suspend fun getComments(serverRequest: ServerRequest): ServerResponse {
         val surveyId = serverRequest.pathVariable("id") as String
 

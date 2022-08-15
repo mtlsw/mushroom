@@ -10,5 +10,6 @@ data class Comment(
     val surveyId: String,
 
     val likeCount: Int = 0,
-    val nestedCommentCount: Int = 0
+    val nestedCommentCount: Int = 0,
+    val me: Boolean = false
 )

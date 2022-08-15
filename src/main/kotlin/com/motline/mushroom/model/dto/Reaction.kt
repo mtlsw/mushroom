@@ -1,4 +1,8 @@
 package com.motline.mushroom.model.dto
 
-class Reaction {
-}
+data class Reaction(
+    val id: String?,
+    val type: Int,
+    val targetId: String,
+    val user: User,
+)
