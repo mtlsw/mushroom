@@ -1,11 +1,10 @@
 package com.motline.mushroom.handler
 
+import com.motline.mushroom.model.request.NestedCommentSaveRequest
+import com.motline.mushroom.model.request.UserSaveRequest
 import com.motline.mushroom.service.UserService
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse
-import org.springframework.web.reactive.function.server.bodyValueAndAwait
-import org.springframework.web.reactive.function.server.json
+import org.springframework.web.reactive.function.server.*
 
 @Component
 class UserHandler(val userService: UserService) {
@@ -22,6 +21,17 @@ class UserHandler(val userService: UserService) {
         val user = userService.getUser(token.first())
 
         return ServerResponse.ok().json().bodyValueAndAwait(mapOf("user" to user))
+    }
+
+    suspend fun saveUser(serverRequest: ServerRequest): ServerResponse {
+        val userSaveRequest = serverRequest.awaitBody(UserSaveRequest::class)
+        val savedUser = userService.saveUser(
+            userSaveRequest.name,
+            userSaveRequest.thirdPartyName,
+            userSaveRequest.thirdPartyId
+        )
+
+        return ServerResponse.ok().json().bodyValueAndAwait(savedUser)
     }
 
     suspend fun main(serverRequest: ServerRequest): ServerResponse {

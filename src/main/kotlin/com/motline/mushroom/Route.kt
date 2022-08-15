@@ -26,6 +26,7 @@ class Route {
 
             "/api/user".nest {
                 GET("", userHandler::getUser)
+                POST("", userHandler::saveUser)
             }
             "/api/surveys".nest {
                 GET("/", surveyHandler::getSurveys)

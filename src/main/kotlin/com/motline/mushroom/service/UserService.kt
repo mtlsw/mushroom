@@ -18,10 +18,11 @@ class UserService(
         return userRepository.find(sessionToken)
     }
 
-    suspend fun saveUser(name: String): User {
+    suspend fun saveUser(name: String, thirdPartyName: String, thirdPartyId: String): User {
         val a = User(
-            name,
-            getRandomToken()
+            name = name,
+            sessionToken = getRandomToken(),
+            thirdPartyLinks = mapOf(thirdPartyName to thirdPartyId)
         )
         return userRepository.save(a)
     }

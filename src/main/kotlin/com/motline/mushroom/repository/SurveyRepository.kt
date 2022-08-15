@@ -46,7 +46,7 @@ class SurveyRepository {
     }
     suspend fun save(survey: Survey): Survey {
         val s = survey.copy(id = getRandomId())
-        return if(this.surveys.add(s)) {
+        return if (this.surveys.add(s)) {
             s
         } else {
             throw Exception("save error")
